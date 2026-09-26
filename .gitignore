@@ -1,0 +1,15 @@
+# Local caches: uv packages, HuggingFace models/datasets, Ollama models
+.cache/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Secrets
+.env
+
+# Keep only the published run; individual runs stay local
+results/*
+!results/latest/
+!results/README.md

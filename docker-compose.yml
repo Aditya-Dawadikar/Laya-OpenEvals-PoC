@@ -1,0 +1,31 @@
+# Reproducible run:   docker compose up --build --abort-on-container-exit --exit-code-from poc
+# With NVIDIA GPU:    docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build ...
+name: laya-openevals-poc
+
+services:
+  ollama:
+    image: ollama/ollama:0.34.3
+    volumes:
+      - ./.cache/ollama:/root/.ollama # models stay in the repo folder, not in Docker's disk image
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  poc:
+    build: .
+    depends_on:
+      ollama:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      OLLAMA_URL: http://ollama:11434
+    volumes:
+      - ./.cache/hf:/cache/hf # Laya checkpoint + TruthfulQA
+      - ./results:/app/results
+    command: ["laya-poc", "run"]
