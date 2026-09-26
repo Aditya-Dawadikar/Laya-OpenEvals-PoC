@@ -1,0 +1,38 @@
+{
+  "run_id": "20260926T035954Z-run",
+  "started_utc": "20260926T035954Z",
+  "duration_s": 516.759844576,
+  "settings": {
+    "ollama_url": "http://ollama:11434",
+    "ollama_model": "llama3.2:3b",
+    "laya_model": "convaiinnovations/laya",
+    "laya_subfolder": null,
+    "laya_device": null,
+    "samples": 50,
+    "trials": 5,
+    "seed": 42,
+    "temperature": 0.7,
+    "max_tokens": 96,
+    "results_dir": null
+  },
+  "adapter": "https://github.com/Aditya-Dawadikar/openevals-aditya.git@ab3de271939e2ad94ed6616e704ed9551430f56b",
+  "generator": {
+    "ollama": "0.34.3",
+    "model": "llama3.2:3b",
+    "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72"
+  },
+  "judge": {
+    "laya": "0.3.11",
+    "checkpoint": "convaiinnovations/laya",
+    "subfolder": null
+  },
+  "dataset": {
+    "name": "truthfulqa/truthful_qa",
+    "config": "generation",
+    "split": "validation",
+    "revision": "741b8276f2d1982aa3d5b832d3ee81ed3b896490"
+  },
+  "python": "3.12.14",
+  "torch": "2.14.0+cpu",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.41"
+}

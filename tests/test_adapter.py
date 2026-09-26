@@ -106,3 +106,32 @@ def test_to_item_builds_non_trivial_controls():
     assert item.control_correct == "They pass through you"
     assert item.control_incorrect == "You grow watermelons"
     assert to_item(1, row | {"correct_answers": ["Nothing happens."]}) is None
+
+
+def test_report_roundtrip_charts_and_readme(tmp_path):
+    from laya_openevals_poc.charts import CHARTS
+    from laya_openevals_poc.report import (
+        load_rows,
+        render_readme_sections,
+        update_readme,
+        write_run,
+    )
+
+    rows = run_experiment(ITEMS, FakeLaya(), lambda q, seed: f"answer to {q}", 2, 42, log=lambda _: None)
+    summary = summarize(rows)
+    manifest = {"run_id": "test-run", "duration_s": 1.0}
+    run_dir = write_run(tmp_path, summary, manifest, rows)
+
+    assert load_rows(run_dir / "rows.csv") == rows
+    for chart in CHARTS:
+        for theme in ("light", "dark"):
+            assert (tmp_path / "latest" / "charts" / f"{chart}-{theme}.svg").stat().st_size > 0
+    assert "charts/separation-dark.svg" in (run_dir / "REPORT.md").read_text(encoding="utf-8")
+
+    readme = tmp_path / "README.md"
+    readme.write_text("intro\n<!-- RESULTS:START -->\nold\n<!-- RESULTS:END -->\n"
+                      "<!-- DETAILS:START -->\nold\n<!-- DETAILS:END -->\nend\n", encoding="utf-8")
+    update_readme(readme, render_readme_sections(summary, manifest, rows, "results/latest/charts/"))
+    text = readme.read_text(encoding="utf-8")
+    assert "STALE" not in text and text.startswith("intro\n") and text.endswith("end\n")
+    assert "Verdict: ✅ FUNCTIONAL" in text and "results/latest/charts/trials-light.svg" in text

@@ -1,0 +1,196 @@
+{
+  "verdict": "FUNCTIONAL",
+  "checks": [
+    {
+      "name": "Adapter returns the OpenEvals result contract (key, bool score, comment)",
+      "passed": true,
+      "detail": "750/750 results valid"
+    },
+    {
+      "name": "Label mapping follows each framing's positive key, including swapped options",
+      "passed": true,
+      "detail": "750/750 verdicts mapped correctly"
+    },
+    {
+      "name": "reference_outputs is forwarded to the System 1 classifier",
+      "passed": true,
+      "detail": "750/750 calls saw the reference"
+    },
+    {
+      "name": "Laya's signal survives the adapter: control AUROC > 0.5 in every trial",
+      "passed": true,
+      "detail": "AUROC per trial: 0.80, 0.81, 0.75, 0.82, 0.74"
+    },
+    {
+      "name": "Adapter verdicts beat chance on known labels in every trial",
+      "passed": true,
+      "detail": "balanced accuracy per trial: 0.72, 0.79, 0.69, 0.76, 0.66"
+    }
+  ],
+  "trials": 5,
+  "items": 50,
+  "evaluator_calls": 750,
+  "per_trial": {
+    "1": {
+      "control_accuracy": 0.72,
+      "control_balanced_accuracy": 0.72,
+      "control_tpr": 0.76,
+      "control_tnr": 0.68,
+      "control_auroc": 0.8012,
+      "control_ece": 0.11927200000000002,
+      "llama_pass_rate": 0.78,
+      "latency_p50_ms": 237.77775500002463
+    },
+    "2": {
+      "control_accuracy": 0.79,
+      "control_balanced_accuracy": 0.79,
+      "control_tpr": 0.74,
+      "control_tnr": 0.84,
+      "control_auroc": 0.814,
+      "control_ece": 0.11819,
+      "llama_pass_rate": 0.68,
+      "latency_p50_ms": 238.66268099982335
+    },
+    "3": {
+      "control_accuracy": 0.69,
+      "control_balanced_accuracy": 0.69,
+      "control_tpr": 0.72,
+      "control_tnr": 0.66,
+      "control_auroc": 0.753,
+      "control_ece": 0.12453000000000004,
+      "llama_pass_rate": 0.82,
+      "latency_p50_ms": 257.5493659996937
+    },
+    "4": {
+      "control_accuracy": 0.76,
+      "control_balanced_accuracy": 0.76,
+      "control_tpr": 0.7,
+      "control_tnr": 0.82,
+      "control_auroc": 0.818,
+      "control_ece": 0.11190900000000004,
+      "llama_pass_rate": 0.8,
+      "latency_p50_ms": 304.1871310001625
+    },
+    "5": {
+      "control_accuracy": 0.66,
+      "control_balanced_accuracy": 0.66,
+      "control_tpr": 0.78,
+      "control_tnr": 0.54,
+      "control_auroc": 0.744,
+      "control_ece": 0.126047,
+      "llama_pass_rate": 0.82,
+      "latency_p50_ms": 334.72367800004577
+    }
+  },
+  "aggregate": {
+    "control_accuracy": {
+      "mean": 0.724,
+      "std": 0.05224940191045254,
+      "min": 0.66,
+      "max": 0.79,
+      "per_trial": [
+        0.72,
+        0.79,
+        0.69,
+        0.76,
+        0.66
+      ]
+    },
+    "control_balanced_accuracy": {
+      "mean": 0.724,
+      "std": 0.05224940191045254,
+      "min": 0.66,
+      "max": 0.79,
+      "per_trial": [
+        0.72,
+        0.79,
+        0.69,
+        0.76,
+        0.66
+      ]
+    },
+    "control_tpr": {
+      "mean": 0.74,
+      "std": 0.03162277660168382,
+      "min": 0.7,
+      "max": 0.78,
+      "per_trial": [
+        0.76,
+        0.74,
+        0.72,
+        0.7,
+        0.78
+      ]
+    },
+    "control_tnr": {
+      "mean": 0.708,
+      "std": 0.12377398757412637,
+      "min": 0.54,
+      "max": 0.84,
+      "per_trial": [
+        0.68,
+        0.84,
+        0.66,
+        0.82,
+        0.54
+      ]
+    },
+    "control_auroc": {
+      "mean": 0.7860400000000001,
+      "std": 0.034971531279027496,
+      "min": 0.744,
+      "max": 0.818,
+      "per_trial": [
+        0.8012,
+        0.814,
+        0.753,
+        0.818,
+        0.744
+      ]
+    },
+    "control_ece": {
+      "mean": 0.11998960000000003,
+      "std": 0.00562042999244719,
+      "min": 0.11190900000000004,
+      "max": 0.126047,
+      "per_trial": [
+        0.11927200000000002,
+        0.11819,
+        0.12453000000000004,
+        0.11190900000000004,
+        0.126047
+      ]
+    },
+    "llama_pass_rate": {
+      "mean": 0.78,
+      "std": 0.058309518948452974,
+      "min": 0.68,
+      "max": 0.82,
+      "per_trial": [
+        0.78,
+        0.68,
+        0.82,
+        0.8,
+        0.82
+      ]
+    },
+    "latency_p50_ms": {
+      "mean": 274.58012219995,
+      "std": 43.09392574658974,
+      "min": 237.77775500002463,
+      "max": 334.72367800004577,
+      "per_trial": [
+        237.77775500002463,
+        238.66268099982335,
+        257.5493659996937,
+        304.1871310001625,
+        334.72367800004577
+      ]
+    }
+  },
+  "llama_stability": {
+    "mean_agreement_with_majority": 0.9,
+    "unanimous_items": 31,
+    "items": 50
+  }
+}

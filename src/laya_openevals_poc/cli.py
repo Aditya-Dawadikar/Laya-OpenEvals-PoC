@@ -1,4 +1,4 @@
-"""`laya-poc run` / `laya-poc smoke`."""
+"""`laya-poc run` / `laya-poc smoke` / `laya-poc report`."""
 from __future__ import annotations
 
 import argparse
@@ -34,7 +34,32 @@ def _parse(argv: list[str] | None) -> argparse.Namespace:
         sp.add_argument("--trials", type=int, help="trials, each a new seed + Laya framing (default 5)")
         sp.add_argument("--seed", type=int, help="base seed (default 42)")
         sp.add_argument("--model", dest="ollama_model", help="Ollama model (default llama3.2:3b)")
+    rp = sub.add_parser("report", help="re-render charts + REPORT.md from a saved run")
+    rp.add_argument("run_dir", nargs="?", help="results/<run_id> (default results/latest)")
+    rp.add_argument("--readme", action="store_true",
+                    help="publish the run to results/latest and write it into README.md")
     return p.parse_args(argv)
+
+
+def _report(run_dir_arg: str | None, readme: bool) -> int:
+    from pathlib import Path
+
+    from .config import REPO_ROOT, Settings
+    from .report import load_rows, publish_latest, render_readme_sections, render_run, update_readme
+
+    results_dir = Settings.from_env().results_dir
+    run_dir = Path(run_dir_arg) if run_dir_arg else results_dir / "latest"
+    summary = json.loads((run_dir / "summary.json").read_text(encoding="utf-8"))
+    manifest = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8"))
+    rows = load_rows(run_dir / "rows.csv")
+    render_run(run_dir, summary, manifest, rows)
+    print(f"Rendered {run_dir / 'REPORT.md'} and {run_dir / 'charts'}")
+    if readme:
+        publish_latest(results_dir, run_dir)
+        update_readme(REPO_ROOT / "README.md",
+                      render_readme_sections(summary, manifest, rows, "results/latest/charts/"))
+        print("Updated README.md from results/latest")
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -43,6 +68,8 @@ def main(argv: list[str] | None = None) -> int:
 
     _pin_caches()
     args = _parse(argv)
+    if args.cmd == "report":
+        return _report(args.run_dir, args.readme)
     settings = Settings.from_env()
     if args.cmd == "smoke":
         settings = settings.override(samples=6, trials=2)
