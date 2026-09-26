@@ -3,6 +3,8 @@ name = "laya-openevals-poc"
 version = "0.1.0"
 description = "Validates the OpenEvals binary-classifier adapter with Laya, a System 1 decision model, judging Llama answers on TruthfulQA."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.11,<3.14"
 dependencies = [
     # The adapter under test: add-binary-classifier-evaluator branch, pinned to a commit

@@ -1,5 +1,14 @@
 # Laya × OpenEvals: System 1 adapter validation
 
+[![CI](https://github.com/Aditya-Dawadikar/Laya-OpenEvals-PoC/actions/workflows/ci.yml/badge.svg)](https://github.com/Aditya-Dawadikar/Laya-OpenEvals-PoC/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Python 3.11–3.13](https://img.shields.io/badge/python-3.11%E2%80%933.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![OpenEvals @ ab3de27](https://img.shields.io/badge/openevals-ab3de27-blue)](https://github.com/Aditya-Dawadikar/openevals-aditya/tree/ab3de271939e2ad94ed6616e704ed9551430f56b)
+[![Laya 0.3.11](https://img.shields.io/badge/laya-0.3.11-FFD21E?logo=huggingface&logoColor=black)](https://huggingface.co/convaiinnovations/laya)
+[![Docker](https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white)](docker-compose.yml)
+
 Does OpenEvals' new **binary-classifier adapter** let a **System 1 model** act as an evaluator?
 This repo answers that with a reproducible experiment: a local **Llama 3.2** (in Docker via Ollama)
 answers **TruthfulQA** questions, and **[Laya](https://huggingface.co/convaiinnovations/laya)**,
@@ -235,3 +244,7 @@ src/laya_openevals_poc/
 tests/            fake-Laya tests (CI)
 results/latest/   the committed reference run
 ```
+
+## License
+
+[MIT](LICENSE). Laya, Llama 3.2, TruthfulQA and OpenEvals are distributed under their own licenses.
